@@ -1,0 +1,1616 @@
+---
+openapi: 3.0.0
+servers:
+  - url: https://qa.api.box.beckn.org/bap/client
+info:
+  description: These APIs are provided by BAP to interact with the Beckn Network
+  version: 0.0.1
+  title: Beckn in a box BAP Client APIs
+  contact:
+    email: info@beckn.org
+tags: []
+paths:
+  "/v1/search":
+    post:
+      summary: Search
+      description: Search using the Beckn Network
+      tags:
+        - Trigger APIs
+      operationId: search
+      requestBody:
+        "$ref": "#/components/requestBodies/SearchRequestDto"
+      responses:
+        '200':
+          description: Successfully initiated search
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ApiResponse"
+      parameters: []
+  "/v1/get_quote":
+    post:
+      summary: Get Quote
+      description: Get Quote from BEckn Provider
+      tags:
+        - Trigger APIs
+      operationId: get_quote
+      requestBody:
+        "$ref": "#/components/requestBodies/GetQuoteRequestDto"
+      responses:
+        '200':
+          description: Successfully submitted request for quote
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ApiResponse"
+      parameters: []
+  "/v1/initialize_order":
+    post:
+      summary: Initialize Order
+      description: Initialize Order with Beckn Provider
+      tags:
+        - Trigger APIs
+      operationId: initialize_order
+      requestBody:
+        "$ref": "#/components/requestBodies/OrderRequestDto"
+      responses:
+        '200':
+          description: Successfully submitted request for initializing order
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ApiResponse"
+      parameters: [ ]
+  "/v1/confirm_order":
+    post:
+      summary: Initialize Order
+      description: Initialize Order with Beckn Provider
+      tags:
+        - Trigger APIs
+      operationId: initialize_order
+      requestBody:
+        "$ref": "#/components/requestBodies/OrderRequestDto"
+      responses:
+        '200':
+          description: Successfully submitted request for initializing order
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ApiResponse"
+      parameters: [ ]
+  "/v1/track":
+    post:
+      summary: Track Order
+      description: Track Order with Beckn Provider
+      tags:
+        - Trigger APIs
+      operationId: track
+      requestBody:
+        "$ref": "#/components/requestBodies/TrackRequestDto"
+      responses:
+        '200':
+          description: Successfully submitted request for initializing order
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ApiResponse"
+      parameters: [ ]
+  "/v1/order_status":
+    post:
+      summary: Order status
+      description: Get Order status from Beckn Provider
+      tags:
+        - Trigger APIs
+      operationId: order_status
+      requestBody:
+        "$ref": "#/components/requestBodies/OrderStatusDto"
+      responses:
+        '200':
+          description: Successfully submitted request for initializing order
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ApiResponse"
+      parameters: [ ]
+  "/v1/cancel_order":
+    post:
+      summary: Cancel Order
+      description: Cancel Order with Beckn Provider
+      tags:
+        - Trigger APIs
+      operationId: cancel_order
+      requestBody:
+        "$ref": "#/components/requestBodies/CancelOrderDto"
+      responses:
+        '200':
+          description: Successfully submitted request for cancel order
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ApiResponse"
+      parameters: [ ]
+  "/v1/get_support":
+    post:
+      summary: Get support
+      description: Get support from Beckn Provider
+      tags:
+        - Trigger APIs
+      operationId: get_support
+      requestBody:
+        "$ref": "#/components/requestBodies/SupportRequestDto"
+      responses:
+        '200':
+          description: Successfull
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ApiResponse"
+      parameters: [ ]
+  "/v1/rating":
+    post:
+      summary: Get rating
+      description: Get rating for Beckn Provider
+      tags:
+        - Trigger APIs
+      operationId: rating
+      requestBody:
+        "$ref": "#/components/requestBodies/RatingRequestDto"
+      responses:
+        '200':
+          description: Successfull
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ApiResponse"
+      parameters: [ ]
+  "/v1/on_search":
+    get:
+      summary: On Search
+      description: Get results for Search by message Id
+      tags:
+        - Response APIs
+      operationId: on_search
+      parameters:
+        - in: query
+          name: message_id
+          description: Message Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully initiated search
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientSearchResponse"
+  "/v1/on_get_quote":
+    get:
+      summary: On Get Quote
+      description: Get quote response by message Id
+      tags:
+        - Response APIs
+      operationId: on_get_quote
+      parameters:
+        - in: query
+          name: message_id
+          description: Message Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientQuoteResponse"
+  "/v1/on_initialize_order":
+    get:
+      summary: On Initialize Order
+      description: Get Initialize order response by message Id
+      tags:
+        - Response APIs
+      operationId: on_initialize_order
+      parameters:
+        - in: query
+          name: message_id
+          description: Message Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfull
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientInitResponse"
+  "/v1/on_confirm_order":
+    get:
+      summary: On Confirm Order
+      description: Get Confirm order response by message Id
+      tags:
+        - Response APIs
+      operationId: on_confirm_order
+      parameters:
+        - in: query
+          name: message_id
+          description: Message Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfull
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientConfirmResponse"
+  "/v1/on_track":
+    get:
+      summary: On Track
+      description: Get Track order response by message Id
+      tags:
+        - Response APIs
+      operationId: on_track
+      parameters:
+        - in: query
+          name: message_id
+          description: Message Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfull
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientTrackResponse"
+  "/v1/on_order_status":
+    get:
+      summary: On Order Shatus
+      description: Get order status response by message Id
+      tags:
+        - Response APIs
+      operationId: on_order_status
+      parameters:
+        - in: query
+          name: message_id
+          description: Message Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfull
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientOrderStatusResponse"
+  "/v1/on_cancel_order":
+    get:
+      summary: On cancel Order
+      description: Get cancel order response by message Id
+      tags:
+        - Response APIs
+      operationId: on_cancel_order
+      parameters:
+        - in: query
+          name: message_id
+          description: Message Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfull
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientCancelResponse"
+  "/v1/on_support":
+    get:
+      summary: On Support
+      description: Get order suppot response by message Id
+      tags:
+        - Response APIs
+      operationId: on_support
+      parameters:
+        - in: query
+          name: message_id
+          description: Message Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfull
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientSupportResponse"
+  "/v1/on_rating":
+    get:
+      summary: On Rating
+      description: Get order Rating response by message Id
+      tags:
+        - Response APIs
+      operationId: on_rating
+      parameters:
+        - in: query
+          name: message_id
+          description: Message Id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfull
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientRatingResponse"
+components:
+  schemas:
+    ClientContext:
+      type: object
+      properties:
+        transaction_id:
+          type: string
+        bpp_id:
+          type: string
+    SearchRequestDto:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/ClientContext"
+        message:
+          "$ref": "#/components/schemas/SearchRequestMessageDto"
+    SearchRequestMessageDto:
+      type: object
+      properties:
+        criteria:
+          "$ref": "#/components/schemas/SearchCriteria"
+    SearchCriteria:
+      type: object
+      properties:
+        search_string:
+          type: string
+        delivery_location:
+          type: string
+        provider_id:
+          type: string
+        category_id:
+          type: string
+    GetQuoteRequestDto:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/ClientContext"
+        message:
+          "$ref": "#/components/schemas/GetQuoteRequestMessageDto"
+      required:
+        - context
+        - message
+    GetQuoteRequestMessageDto:
+      type: object
+      properties:
+        cart:
+          "$ref": "#/components/schemas/CartDto"
+      required:
+        - cart
+    CartDto:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            "$ref": "#/components/schemas/CartItemDto"
+    CartItemDto:
+      type: object
+      properties:
+        id:
+          type: string
+        quantity:
+          "$ref": "#/components/schemas/CartSelectedItemQuantity"
+        bpp_id:
+          type: string
+        provider:
+          "$ref": "#/components/schemas/CartItemProviderDto"
+        quote:
+          "$ref": "#/components/schemas/Quotation"
+      required:
+        - id
+        - quantity
+        - bpp_id
+        - provider
+    CartSelectedItemQuantity:
+      type: object
+      properties:
+        count:
+          type: integer
+        measure:
+          "$ref": "#/components/schemas/Scalar"
+    CartItemProviderDto:
+      type: object
+      properties:
+        id:
+          type: string
+        locations:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+    OrderRequestDto:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/ClientContext"
+        message:
+          "$ref": "#/components/schemas/OrderDto"
+      required:
+        - context
+        - message
+    OrderDto:
+      type: object
+      properties:
+        id:
+          type: string
+        items:
+          type: array
+          items:
+            "$ref": "#/components/schemas/OrderItemDto"
+        delivery_info:
+          type: object
+          $ref: '#/components/schemas/DeliveryDto'
+        billing_info:
+          type: object
+          $ref: '#/components/schemas/Billing'
+        payment:
+          type: object
+          $ref: '#/components/schemas/Payment'
+    OrderItemDto:
+      type: object
+      properties:
+        id:
+          type: string
+        quantity:
+          "$ref": "#/components/schemas/CartSelectedItemQuantity"
+        bpp_id:
+          type: string
+        provider:
+          "$ref": "#/components/schemas/CartItemProviderDto"
+      required:
+        - id
+        - quantity
+        - bpp_id
+        - provider
+    DeliveryDto:
+      type: object
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        type:
+          type: string
+    TrackRequestDto:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/ClientContext"
+        message:
+          "$ref": "#/components/schemas/TrackRequestMessage"
+      required:
+        - context
+        - message
+    TrackRequestMessage:
+      type: object
+      properties:
+        callback_url:
+          type: string
+        order_id:
+          type: string
+      required:
+        - context
+        - message
+    OrderStatusDto:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/ClientContext"
+        message:
+          "$ref": "#/components/schemas/OrderStatusRequestMessage"
+      required:
+        - context
+        - message
+    OrderStatusRequestMessage:
+      type: object
+      properties:
+        order_id:
+          type: string
+    CancelOrderDto:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/ClientContext"
+        message:
+          "$ref": "#/components/schemas/CancelOrderRequestMessage"
+      required:
+        - context
+        - message
+    CancelOrderRequestMessage:
+      type: object
+      properties:
+        order_id:
+          type: string
+        cancellation_reason_id:
+          type: string
+    SupportRequestDto:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/ClientContext"
+        message:
+          "$ref": "#/components/schemas/SupportRequestMessage"
+      required:
+        - context
+        - message
+    SupportRequestMessage:
+      type: object
+      properties:
+        ref_id:
+          type: string
+    RatingRequestDto:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/ClientContext"
+        message:
+          "$ref": "#/components/schemas/RatingRequestMessage"
+      required:
+        - context
+        - message
+    RatingRequestMessage:
+      type: object
+      properties:
+        ref_id:
+          type: string
+        value:
+          type: integer
+    ClientSearchResponse:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/Context"
+        message:
+          "$ref": "#/components/schemas/ClientSearchResponseMessage"
+        error:
+          "$ref": "#/components/schemas/Error"
+    ClientSearchResponseMessage:
+      type: object
+      properties:
+        catalogs:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ClientCatalog"
+    ClientCatalog:
+      description: Describes a BPP catalog
+      type: object
+      properties:
+        bpp_descriptor:
+          "$ref": "#/components/schemas/Descriptor"
+        bpp_providers:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Provider"
+        bpp_categories:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Category"
+        exp:
+          type: string
+          description: Time after which catalog has to be refreshed
+          format: date-time
+        bpp_id:
+          type: string
+          description: ID of the BPP
+    ClientQuoteResponse:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/Context"
+        message:
+          "$ref": "#/components/schemas/ClientQuoteResponseMessage"
+        error:
+          "$ref": "#/components/schemas/Error"
+    ClientQuoteResponseMessage:
+      type: object
+      properties:
+        quote:
+          type: object
+          "$ref": "#/components/schemas/OnSelectMessageSelected"
+    OnSelectMessageSelected:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnSelectedItem'
+        add_ons:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddOn'
+        offers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Offer'
+        quote:
+          $ref: '#/components/schemas/Quotation'
+        provider:
+          $ref: '#/components/schemas/Provider'
+        provider_location:
+          $ref: '#/components/schemas/Location'
+    OnSelectedItem:
+      type: object
+      properties:
+        category_id:
+          type: string
+        descriptor:
+          $ref: '#/components/schemas/Descriptor'
+        id:
+          type: string
+        location_id:
+          type: string
+        parent_item_id:
+          type: string
+        price:
+          $ref: '#/components/schemas/Price'
+        quantity:
+          $ref: '#/components/schemas/ItemQuantity'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        time:
+          $ref: '#/components/schemas/Time'
+    ClientInitResponse:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/Context"
+        message:
+          "$ref": "#/components/schemas/OnInitMessage"
+        error:
+          "$ref": "#/components/schemas/Error"
+    OnInitMessage:
+      type: object
+      properties:
+        initialized:
+          type: object
+          "$ref": "#/components/schemas/OnInitMessageInitialized"
+    OnInitMessageInitialized:
+      type: object
+      properties:
+        add_ons:
+          type: array
+          items:
+            $ref: "#/components/schemas/AddOn"
+        billing:
+          $ref: "#/components/schemas/Billing"
+        fulfillment:
+          $ref: "#/components/schemas/Fulfillment"
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/Item/properties/id'
+              quantity:
+                $ref: '#/components/schemas/ItemQuantity/properties/selected'
+        offers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/Offer/properties/id'
+        quote:
+          $ref: '#/components/schemas/Quotation'
+        payment:
+          $ref: '#/components/schemas/Payment'
+        provider:
+          $ref: '#/components/schemas/Provider'
+        provider_location:
+          $ref: '#/components/schemas/Location/properties/id'
+    OnInitMessageInitializedItems:
+      type: object
+      properties:
+        id:
+          type: string
+        quantity:
+          $ref: '#/components/schemas/OnInitMessageInitializedItems'
+    ClientConfirmResponse:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/Context"
+        message:
+          "$ref": "#/components/schemas/OnConfirmMessage"
+        error:
+          "$ref": "#/components/schemas/Error"
+    OnConfirmMessage:
+      type: object
+      properties:
+        order:
+          type: object
+          "$ref": "#/components/schemas/Order"
+    ClientTrackResponse:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/Context"
+        message:
+          "$ref": "#/components/schemas/OnTrackMessage"
+        error:
+          "$ref": "#/components/schemas/Error"
+    OnTrackMessage:
+      type: object
+      properties:
+        tracking:
+          type: object
+          "$ref": "#/components/schemas/OnTrackMessageTracking"
+    OnTrackMessageTracking:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - Active
+            - Inactive
+        url:
+          type: string
+    ClientOrderStatusResponse:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/Context"
+        message:
+          "$ref": "#/components/schemas/OnOrderStatusMessage"
+        error:
+          "$ref": "#/components/schemas/Error"
+    OnOrderStatusMessage:
+      type: object
+      properties:
+        order:
+          type: object
+          "$ref": "#/components/schemas/Order"
+    ClientCancelResponse:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/Context"
+        message:
+          "$ref": "#/components/schemas/OnCancelMessage"
+        error:
+          "$ref": "#/components/schemas/Error"
+    OnCancelMessage:
+      type: object
+      properties:
+        order:
+          type: object
+          "$ref": "#/components/schemas/Order"
+    ClientSupportResponse:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/Context"
+        message:
+          "$ref": "#/components/schemas/OnSupportMessage"
+        error:
+          "$ref": "#/components/schemas/Error"
+    OnSupportMessage:
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+        url:
+          type: string
+    ClientRatingResponse:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/Context"
+        message:
+          "$ref": "#/components/schemas/ClientRatingResponseMessage"
+        error:
+          "$ref": "#/components/schemas/Error"
+    ClientRatingResponseMessage:
+      type: object
+      properties:
+        feedback:
+          $ref: '#/components/schemas/OnRatingMessageFeedback'
+    OnRatingMessageFeedback:
+      type: object
+      properties:
+        descriptor:
+          type: string
+        id:
+          type: string
+        parent_id:
+          type: string
+    Category:
+      description: Describes a category
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique id of the category
+        parent_category_id:
+          "$ref": "#/components/schemas/Category/properties/id"
+        descriptor:
+          "$ref": "#/components/schemas/Descriptor"
+        time:
+          type: string
+          description: Time after which catalog has to be refreshed
+          format: date-time
+        tags:
+          "$ref": "#/components/schemas/Tags"
+    Order:
+      description: Describes the details of an order
+      type: object
+      properties:
+        id:
+          type: string
+          description: Hash of order object without id
+        state:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/Item/properties/id'
+              quantity:
+                $ref: '#/components/schemas/ItemQuantity/properties/selected'
+            required:
+              - id
+              - quantity
+        add_ons:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/AddOn/properties/id'
+            required:
+              - id
+        offers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/Offer/properties/id'
+            required:
+              - id
+        billing:
+          $ref: '#/components/schemas/Billing'
+        fulfillment:
+          $ref: '#/components/schemas/Fulfillment'
+        quote:
+          $ref: '#/components/schemas/Quotation'
+        payment:
+          $ref: '#/components/schemas/Payment'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - provider
+        - items
+        - add_ons
+        - offers
+        - billing
+        - fulfillment
+        - quote
+        - payment
+    Descriptor:
+      description: Describes the description of a real-world object
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+        symbol:
+          type: string
+        short_desc:
+          type: string
+        long_desc:
+          type: string
+        images:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Image"
+        audio:
+          type: string
+          format: uri
+        3d_render:
+          type: string
+          format: uri
+    Provider:
+      description: Describes a service provider. This can be a restaurant, a hospital,
+        a Store etc
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the provider
+        descriptor:
+          "$ref": "#/components/schemas/Descriptor"
+        locations:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Location"
+        categories:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Category"
+        items:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Item"
+        exp:
+          type: string
+          description: Time after which catalog has to be refreshed
+          format: date-time
+        tags:
+          "$ref": "#/components/schemas/Tags"
+        matched:
+          type: boolean
+    Location:
+      description: Describes the location of a runtime object. Extension not allowed
+      type: object
+      properties:
+        id:
+          type: string
+        descriptor:
+          "$ref": "#/components/schemas/Descriptor"
+        gps:
+          "$ref": "#/components/schemas/Gps"
+        address:
+          "$ref": "#/components/schemas/Address"
+        station_code:
+          type: string
+        city:
+          "$ref": "#/components/schemas/City"
+        country:
+          "$ref": "#/components/schemas/Country"
+        circle:
+          "$ref": "#/components/schemas/Circle"
+        polygon:
+          type: string
+        3dspace:
+          type: string
+        time:
+          "$ref": "#/components/schemas/Time"
+    Address:
+      description: Describes an address
+      type: object
+      properties:
+        door:
+          type: string
+          description: Door / Shop number of the address
+        name:
+          type: string
+          description: Name of address if applicable. Example, shop name
+        building:
+          type: string
+          description: Name of the building or block
+        street:
+          type: string
+          description: Street name or number
+        locality:
+          type: string
+          description: Name of the locality, apartments
+        ward:
+          type: string
+          description: Name or number of the ward if applicable
+        city:
+          type: string
+          description: City name
+        state:
+          type: string
+          description: State name
+        country:
+          type: string
+          description: Country name
+        area_code:
+          type: string
+          description: Area code. This can be Pincode, ZIP code or any equivalent
+    Billing:
+      description: Describes a billing event
+      type: object
+      properties:
+        name:
+          description: Personal details of the customer needed for billing.
+          type: string
+        organization:
+          $ref: '#/components/schemas/Organization'
+        address:
+          $ref: '#/components/schemas/Address'
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        time:
+          $ref: '#/components/schemas/Time'
+        tax_number:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - name
+        - phone
+    Organization:
+      description: Describes an organization
+      type: object
+      properties:
+        name:
+          type: string
+        cred:
+          type: string
+    Fulfillment:
+      description: Describes how a single product/service will be rendered/fulfilled to the end customer
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique reference ID to the fulfillment of an order
+        type:
+          type: string
+          description: This describes the type of fulfillment
+        state:
+          $ref: '#/components/schemas/State'
+        tracking:
+          type: boolean
+          description: Indicates whether the fulfillment allows tracking
+          default: false
+        customer:
+          type: object
+          properties:
+            person:
+              $ref: '#/components/schemas/Person'
+            contact:
+              $ref: '#/components/schemas/Contact'
+        agent:
+          $ref: '#/components/schemas/Person'
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        start:
+          description: Details on the start of fulfillment
+          type: object
+          properties:
+            location:
+              $ref: '#/components/schemas/Location'
+            time:
+              $ref: '#/components/schemas/Time'
+            instructions:
+              $ref: '#/components/schemas/Descriptor'
+            contact:
+              $ref: '#/components/schemas/Contact'
+            person:
+              $ref: '#/components/schemas/Person'
+        end:
+          description: Details on the end of fulfillment
+          type: object
+          properties:
+            location:
+              $ref: '#/components/schemas/Location'
+            time:
+              $ref: '#/components/schemas/Time'
+            instructions:
+              $ref: '#/components/schemas/Descriptor'
+            contact:
+              $ref: '#/components/schemas/Contact'
+            person:
+              $ref: '#/components/schemas/Person'
+        tags:
+          $ref: '#/components/schemas/Tags'
+    Vehicle:
+      description: Describes the properties of a vehicle used in a mobility service
+      type: object
+      properties:
+        category:
+          type: string
+        capacity:
+          type: integer
+        make:
+          type: string
+        model:
+          type: string
+        size:
+          type: string
+        variant:
+          type: string
+        color:
+          type: string
+        energy_type:
+          type: string
+        registration:
+          type: string
+    State:
+      description: Describes a state
+      type: object
+      properties:
+        descriptor:
+          $ref: '#/components/schemas/Descriptor'
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: string
+          description: ID of entity which changed the state
+    Person:
+      description: Describes a person. Extension not allowed
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        image:
+          $ref: '#/components/schemas/Image'
+        dob:
+          type: string
+          format: date
+        gender:
+          type: string
+          description: 'Gender of something, typically a Person, but possibly also fictional characters, animals, etc. While Male and Female may be used, text strings are also acceptable for people who do not identify as a binary gender'
+        cred:
+          type: string
+        tags:
+          $ref: '#/components/schemas/Tags'
+    Name:
+      type: string
+      description: 'Describes the name of a person in format: ./{given_name}/{honorific_prefix}/{first_name}/{middle_name}/{last_name}/{honorific_suffix}'
+      pattern: '^\./[^/]+/[^/]*/[^/]*/[^/]*/[^/]*/[^/]*$'
+    AddOn:
+      type: object
+      properties:
+        descriptor:
+          $ref: '#/components/schemas/Descriptor'
+        id:
+          type: string
+        price:
+          $ref: '#/components/schemas/Price'
+    City:
+      description: Describes a city
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the city
+        code:
+          type: string
+          description: City code
+    Contact:
+      type: object
+      properties:
+        phone:
+          type: string
+        email:
+          type: string
+        tags:
+          $ref: '#/components/schemas/Tags'
+    Country:
+      description: Describes a country.
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the country
+        code:
+          type: string
+          description: Country code as per ISO 3166-1 and ISO 3166-2 format
+    Circle:
+      description: Describes a circular area on the map
+      type: object
+      properties:
+        gps:
+          "$ref": "#/components/schemas/Gps"
+        radius:
+          "$ref": "#/components/schemas/Scalar"
+      required:
+        - gps
+        - radius
+    Tags:
+      description: Describes a tag. This is a simple key-value store which is used
+        to contain extended metadata
+      additionalProperties:
+        type: string
+    Gps:
+      description: Describes a gps coordinate
+      type: string
+      pattern: "^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?),\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$"
+    Image:
+      description: 'Image of an object. <br/><br/> A url based image will look like
+        <br/><br/>```uri:http://path/to/image``` <br/><br/> An image can also be sent
+        as a data string. For example : <br/><br/> ```data:js87y34ilhriuho84r3i4```'
+      type: string
+    Payment:
+      description: Describes a payment
+      type: object
+      properties:
+        uri:
+          type: string
+          description: 'A payment uri to be called by the BAP. If empty, then the payment is to be done offline. The details of payment should be present in the params object. If ```tl_method``` = http/get, then the payment details will be sent as url params. Two url param values, ```$transaction_id``` and ```$amount``` are mandatory. And example url would be : https://www.example.com/pay?txid=$transaction_id&amount=$amount&vpa=upiid&payee=shopez&billno=1234'
+          format: uri
+        tl_method:
+          type: string
+          enum:
+            - http/get
+            - http/post
+        params:
+          type: object
+          properties:
+            transaction_id:
+              type: string
+              description: This value will be placed in the the $transaction_id url param in case of http/get and in the requestBody http/post requests
+            transaction_status:
+              type: string
+            amount:
+              $ref: '#/components/schemas/Price/properties/value'
+            currency:
+              $ref: '#/components/schemas/Price/properties/currency'
+          additionalProperties:
+            type: string
+          required:
+            - currency
+        type:
+          type: string
+          enum:
+            - ON-ORDER
+            - PRE-FULFILLMENT
+            - ON-FULFILLMENT
+            - POST-FULFILLMENT
+        status:
+          type: string
+          enum:
+            - PAID
+            - NOT-PATD
+        time:
+          $ref: '#/components/schemas/Time'
+    Time:
+      description: Describes time in its various forms. It can be a single point in
+        time; duration; or a structured timetable of operations
+      type: object
+      properties:
+        label:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        duration:
+          "$ref": "#/components/schemas/Duration"
+        range:
+          type: object
+          properties:
+            start:
+              type: string
+              format: date-time
+            end:
+              type: string
+              format: date-time
+        days:
+          type: string
+          description: comma separated values representing days of the week
+    Scalar:
+      description: An object representing a scalar quantity. Extension allowed only
+        to the limit of vector
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - CONSTANT
+            - VARIABLE
+        value:
+          type: number
+        estimated_value:
+          type: number
+        computed_value:
+          type: number
+        range:
+          type: object
+          properties:
+            min:
+              type: number
+            max:
+              type: number
+        unit:
+          type: string
+      required:
+        - value
+        - unit
+    Duration:
+      description: Describes duration as per ISO8601 format
+      type: string
+    Item:
+      description: Describes an item. Allows for domain extension.
+      type: object
+      properties:
+        id:
+          description: This is the most unique identifier of a service item. An example
+            of an Item ID could be the SKU of a product.
+          type: string
+          format: "#/components/schemas/Item/properties/id"
+        parent_item_id:
+          "$ref": "#/components/schemas/Item/properties/id"
+        descriptor:
+          "$ref": "#/components/schemas/Descriptor"
+        price:
+          "$ref": "#/components/schemas/Price"
+        category_id:
+          "$ref": "#/components/schemas/Category/properties/id"
+        location_id:
+          "$ref": "#/components/schemas/Location/properties/id"
+        time:
+          "$ref": "#/components/schemas/Time"
+        matched:
+          type: boolean
+        related:
+          type: boolean
+        recommended:
+          type: boolean
+        tags:
+          "$ref": "#/components/schemas/Tags"
+    ItemQuantity:
+      description: Describes count or amount of an item
+      type: object
+      properties:
+        allocated:
+          type: object
+          properties:
+            count:
+              type: integer
+              minimum: 0
+            measure:
+              $ref: '#/components/schemas/Scalar'
+        available:
+          type: object
+          properties:
+            count:
+              type: integer
+              minimum: 0
+            measure:
+              $ref: '#/components/schemas/Scalar'
+        maximum:
+          type: object
+          properties:
+            count:
+              type: integer
+              minimum: 1
+            measure:
+              $ref: '#/components/schemas/Scalar'
+        minimum:
+          type: object
+          properties:
+            count:
+              type: integer
+              minimum: 0
+            measure:
+              $ref: '#/components/schemas/Scalar'
+        selected:
+          type: object
+          properties:
+            count:
+              type: integer
+              minimum: 0
+            measure:
+              $ref: '#/components/schemas/Scalar'
+    Price:
+      description: Describes the price of an item. Allows for domain extension.
+      type: object
+      properties:
+        currency:
+          type: string
+        value:
+          "$ref": "#/components/schemas/DecimalValue"
+        estimated_value:
+          "$ref": "#/components/schemas/DecimalValue"
+        computed_value:
+          "$ref": "#/components/schemas/DecimalValue"
+        listed_value:
+          "$ref": "#/components/schemas/DecimalValue"
+        offered_value:
+          "$ref": "#/components/schemas/DecimalValue"
+        minimum_value:
+          "$ref": "#/components/schemas/DecimalValue"
+        maximum_value:
+          "$ref": "#/components/schemas/DecimalValue"
+    Offer:
+      description: Describes an offer
+      type: object
+      properties:
+        id:
+          type: string
+        descriptor:
+          $ref: '#/components/schemas/Descriptor'
+        location_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location/properties/id'
+        category_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category/properties/id'
+        item_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item/properties/id'
+        time:
+          $ref: '#/components/schemas/Time'
+    DecimalValue:
+      description: Describes a decimal value
+      type: string
+      pattern: "[+-]?([0-9]*[.])?[0-9]+"
+    ApiResponse:
+      type: object
+      properties:
+        context:
+          "$ref": "#/components/schemas/Context"
+        message:
+          "$ref": "#/components/schemas/Message"
+        error:
+          "$ref": "#/components/schemas/Error"
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - CONTEXT-ERROR
+            - CORE-ERROR
+            - DOMAIN-ERROR
+            - POLICY-ERROR
+            - JSON-SCHEMA-ERROR
+        code:
+          type: string
+        path:
+          type: string
+        message:
+          type: string
+    Context:
+      type: object
+      properties:
+        domain:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        core_version:
+          type: string
+        domain_version:
+          type: string
+        transaction_id:
+          type: string
+        message_id:
+          type: string
+        key:
+          type: string
+        ttl:
+          type: string
+    Message:
+      type: object
+      properties:
+        ack:
+          "$ref": "#/components/schemas/Ack"
+    Ack:
+      type: string
+      enum:
+        - ACK
+        - NACK
+    Quotation:
+      description: Describes a quote
+      type: object
+      properties:
+        price:
+          $ref: '#/components/schemas/Price'
+        breakup:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              price:
+                $ref: '#/components/schemas/Price'
+              refId:
+                type: string
+              type:
+                type: string
+                enum:
+                  - ITEM
+                  - OFFER
+                  - ADDON
+                  - FULFILLMENT
+        ttl:
+          $ref: '#/components/schemas/Duration'
+  requestBodies:
+    SearchRequestDto:
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/SearchRequestDto"
+      description: SearchRequestDto that specifies the search criteria
+      required: true
+    GetQuoteRequestDto:
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/GetQuoteRequestDto"
+      description: GetQuoteRequestDto that specifies the cart for which quote is required
+      required: true
+    OrderRequestDto:
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/OrderRequestDto"
+      description: OrderRequestDto that specifies the order to be initialized
+      required: true
+    TrackRequestDto:
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/TrackRequestDto"
+      description: TrackRequestDto that specifies the order to be tracked
+      required: true
+    OrderStatusDto:
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/OrderStatusDto"
+      description: OrderStatusDto that specifies the order whose status is required
+      required: true
+    CancelOrderDto:
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/CancelOrderDto"
+      description: CancelOrderDto that specifies the order to be cancelled
+      required: true
+    SupportRequestDto:
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/SupportRequestDto"
+      description: CancelOrderDto that specifies the order to be cancelled
+      required: true
+    RatingRequestDto:
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/RatingRequestDto"
+      description: RatingOrderDto that specifies the rating
+      required: true
+  securitySchemes: {}
+  links: {}
+  callbacks: {}
+security: []
