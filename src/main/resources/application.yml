@@ -55,6 +55,8 @@ protocol_service:
     write_in_seconds: 5
 context:
   domain: nic2004:52110
+  domain_consultation: nic2021:85110
+  domain_diagnostics: nic2021:85195
   city: std:080
   country: IND
   bap_id: box.beckn.org
@@ -123,7 +125,7 @@ security:
 database:
   mongo:
     url: mongodb://localhost:27017
-    name: sandbox_client
+    name: sandbox_dhp_client
 management:
   endpoints:
     web:
