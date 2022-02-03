@@ -22,7 +22,7 @@ class OrderStatusService @Autowired constructor(
   fun getOrderStatus(context: ProtocolContext, request: OrderStatusDto): Either<HttpError, ProtocolAckResponse?> {
     log.info("Got get order status request.  Context: {}, Order: {}", context, request)
     return request.validate()
-      .flatMap { registryService.lookupBppById(it.context.bppId!!) }
+      .flatMap { registryService.lookupBppById(it.context.bppId!!, context.domain) }
       .flatMap {
         bppOrderStatusService.getOrderStatus(
           context = context,

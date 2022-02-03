@@ -26,13 +26,13 @@ class SearchService @Autowired constructor(
 
   fun search(context: ProtocolContext, criteria: SearchCriteria): Either<HttpError, ProtocolAckResponse> {
     log.info("Got search request with criteria: {} ", criteria)
-    if (isBppFilterSpecified(context)) {
+      if (isBppFilterSpecified(context)) {
       return registryService
-        .lookupBppById(context.bppId!!)
+        .lookupBppById(context.bppId!!,context.domain)
         .flatMap { bppSearchService.search(it.first().subscriber_url, context, criteria) }
     }
     return registryService
-      .lookupGateways()
+      .lookupGateways(context.domain)
       .flatMap {
         it.fold(GatewaySearchError.NullResponse.left() as Either<HttpError, ProtocolAckResponse>) { previousGatewayResponse, gateway ->
           previousGatewayResponse.orElse { gatewayService.search(gateway, context, criteria) }

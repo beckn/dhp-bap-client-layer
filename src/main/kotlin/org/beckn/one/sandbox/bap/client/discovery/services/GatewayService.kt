@@ -44,22 +44,26 @@ class GatewayService @Autowired constructor(
     }
   }
 
-  private fun buildProtocolSearchRequest(context: ProtocolContext, criteria: SearchCriteria) =
-    ProtocolSearchRequest(
+  private fun buildProtocolSearchRequest(context: ProtocolContext, criteria: SearchCriteria): ProtocolSearchRequest {
+   return  ProtocolSearchRequest(
       context,
       ProtocolSearchRequestMessage(
         ProtocolIntent(
           item = ProtocolIntentItem(descriptor = ProtocolIntentItemDescriptor(name = criteria.searchString)),
-          provider = ProtocolProvider( id = criteria.providerId, category_id = criteria.categoryId,
-            descriptor = ProtocolDescriptor(name = criteria.providerName)),
+          provider = ProtocolProvider( id = criteria?.providerId, category_id = criteria?.categoryId,
+            descriptor = ProtocolDescriptor(name = criteria?.searchString)),
           category= ProtocolCategory(
             id = criteria?.categoryId,
-            descriptor = ProtocolDescriptor(name = criteria?.categoryName)
+            descriptor = ProtocolDescriptor(name = criteria?.searchString)
           ),
           fulfillment = ProtocolFulfillment(
             start = ProtocolFulfillmentStart(location = ProtocolLocation(gps=criteria.pickupLocation)),
-            end = ProtocolFulfillmentEnd(location = ProtocolLocation(gps = criteria.deliveryLocation))),
+            end = ProtocolFulfillmentEnd(location = ProtocolLocation(gps = criteria.deliveryLocation)),
+          agent = ProtocolPerson(name = criteria?.searchString)),
+          tags = if(criteria?.symptoms != null) mapOf("symptoms" to criteria?.symptoms) else null
         )
       )
     )
+  }
+
 }

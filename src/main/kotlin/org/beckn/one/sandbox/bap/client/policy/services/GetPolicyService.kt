@@ -27,7 +27,7 @@ class GetPolicyService @Autowired constructor(
       return Either.Left(BppError.BppIdNotPresent)
     }
 
-    return registryService.lookupBppById(context.bppId!!)
+    return registryService.lookupBppById(context.bppId!!, context.domain)
       .flatMap {
         bppService.getCancellationReasons(
           bppUri = it.first().subscriber_url,
@@ -44,7 +44,7 @@ class GetPolicyService @Autowired constructor(
       return Either.Left(BppError.BppIdNotPresent)
     }
 
-    return registryService.lookupBppById(context.bppId!!)
+    return registryService.lookupBppById(context.bppId!!, context.domain)
       .flatMap {
         bppService.getRatingCategories(
           bppUri = it.first().subscriber_url,

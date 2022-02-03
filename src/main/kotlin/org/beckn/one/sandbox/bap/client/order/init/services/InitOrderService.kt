@@ -40,7 +40,7 @@ class InitOrderService @Autowired constructor(
       return Either.Left(CartError.MultipleProviders)
     }
 
-    return registryService.lookupBppById(order.items.first().bppId)
+    return registryService.lookupBppById(order.items.first().bppId, context.domain)
       .flatMap {
         bppInitService.init(
           context,

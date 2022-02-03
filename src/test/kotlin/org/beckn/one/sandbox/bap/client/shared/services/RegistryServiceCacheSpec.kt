@@ -41,8 +41,8 @@ class RegistryServiceCacheSpec @Autowired constructor(
       }
 
       it("should cache gateway response") {
-        val firstResponse = registryService.lookupGateways()
-        val secondResponse = registryService.lookupGateways()
+        val firstResponse = registryService.lookupGateways("context.domain")
+        val secondResponse = registryService.lookupGateways("context.domain")
 
         firstResponse shouldBeRight allGateways
         firstResponse shouldBe secondResponse
@@ -50,9 +50,9 @@ class RegistryServiceCacheSpec @Autowired constructor(
       }
 
       it("should clear cache") {
-        val gatewaysResponseBeforeCacheClearing = registryService.lookupGateways()
+        val gatewaysResponseBeforeCacheClearing = registryService.lookupGateways("context.domain")
         registryService.clearGatewayCache()
-        val gatewaysResponseAfterCacheClearing = registryService.lookupGateways()
+        val gatewaysResponseAfterCacheClearing = registryService.lookupGateways("context.domain")
 
         gatewaysResponseBeforeCacheClearing.isRight() shouldBe true
         gatewaysResponseAfterCacheClearing.isRight() shouldBe true
@@ -83,10 +83,10 @@ class RegistryServiceCacheSpec @Autowired constructor(
       }
 
       it("should cache multiple bpp lookup responses by their id") {
-        val bppFirstResponse = registryService.lookupBppById(bpp.subscriber_id)
-        val bppSecondResponse = registryService.lookupBppById(bpp.subscriber_id)
-        val anotherBppFirstResponse = registryService.lookupBppById(anotherBpp.subscriber_id)
-        val anotherBppSecondResponse = registryService.lookupBppById(anotherBpp.subscriber_id)
+        val bppFirstResponse = registryService.lookupBppById(bpp.subscriber_id, "context.domain")
+        val bppSecondResponse = registryService.lookupBppById(bpp.subscriber_id, "context.domain")
+        val anotherBppFirstResponse = registryService.lookupBppById(anotherBpp.subscriber_id, "context.domain")
+        val anotherBppSecondResponse = registryService.lookupBppById(anotherBpp.subscriber_id, "context.domain")
 
         bppFirstResponse shouldBeRight listOf(bpp)
         bppFirstResponse shouldBe bppSecondResponse
@@ -97,9 +97,9 @@ class RegistryServiceCacheSpec @Autowired constructor(
       }
 
       it("should clear cache") {
-        val bppResponseBeforeCacheClearing = registryService.lookupBppById(bpp.subscriber_id)
+        val bppResponseBeforeCacheClearing = registryService.lookupBppById(bpp.subscriber_id, "context.domain")
         registryService.clearBppsByIdCache()
-        val bppResponseAfterCacheClearing = registryService.lookupBppById(bpp.subscriber_id)
+        val bppResponseAfterCacheClearing = registryService.lookupBppById(bpp.subscriber_id, "context.domain")
 
         bppResponseBeforeCacheClearing.isRight() shouldBe true
         bppResponseAfterCacheClearing.isRight() shouldBe true

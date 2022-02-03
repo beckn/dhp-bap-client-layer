@@ -24,7 +24,7 @@ class TrackService @Autowired constructor(
     log.info("Got track request. Request: {}", request)
 
     return TrackRequestDto.validate(request)
-      .flatMap { registryService.lookupBppById(it.context.bppId!!) }
+      .flatMap { registryService.lookupBppById(it.context.bppId!!, context.domain) }
       .map { it.first() }
       .flatMap { bppTrackService.track(it.subscriber_url, context, request) }
   }

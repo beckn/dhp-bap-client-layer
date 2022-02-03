@@ -40,7 +40,7 @@ class RegistryServiceRetrySpec @Autowired constructor(
         stubRegistryLookupApi(response = serverError())
         stubRegistryLookupApi(forState = "Success", response = okJson(objectMapper.toJson<Any>(allGateways)))
 
-        val response = registryService.lookupGateways()
+        val response = registryService.lookupGateways("context.domain")
 
         response
           .fold(
@@ -54,7 +54,7 @@ class RegistryServiceRetrySpec @Autowired constructor(
         stubRegistryLookupApi(response = serverError(), forState = STARTED, nextState = "Failure")
         stubRegistryLookupApi(response = serverError(), forState = "Failure", nextState = "Failure")
 
-        val response = registryService.lookupGateways()
+        val response = registryService.lookupGateways("context.domain")
 
         response shouldBeLeft RegistryLookupError.Internal
         verifyRegistryLookupApiIsInvoked(3)
@@ -78,7 +78,7 @@ class RegistryServiceRetrySpec @Autowired constructor(
           registry = MockNetwork.registryBppLookupApi
         )
 
-        val response = registryService.lookupBppById(bpp.subscriber_id)
+        val response = registryService.lookupBppById(bpp.subscriber_id, "context.domain")
 
         response
           .fold(
@@ -102,7 +102,7 @@ class RegistryServiceRetrySpec @Autowired constructor(
           registry = MockNetwork.registryBppLookupApi
         )
 
-        val response = registryService.lookupBppById(bpp.subscriber_id)
+        val response = registryService.lookupBppById(bpp.subscriber_id, "context.domain")
 
         response shouldBeLeft RegistryLookupError.Internal
         verifyRegistryLookupApiIsInvoked(3, registry = MockNetwork.registryBppLookupApi)
