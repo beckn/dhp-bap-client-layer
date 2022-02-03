@@ -40,13 +40,13 @@ class RegistryService(
   private val log: Logger = LoggerFactory.getLogger(RegistryService::class.java)
 
   @Cacheable(CacheName.gateways)
-  fun lookupGateways(): Either<RegistryLookupError, List<SubscriberDto>> {
-    return lookup(registryServiceClient, lookupRequest(subscriberType = Subscriber.Type.BG))
+  fun lookupGateways(domain: String): Either<RegistryLookupError, List<SubscriberDto>> {
+    return lookup(registryServiceClient, lookupRequest(subscriberType = Subscriber.Type.BG,domain= domain))
   }
 
   @Cacheable(CacheName.bppsById)
-  fun lookupBppById(id: String): Either<RegistryLookupError, List<SubscriberDto>> {
-    return lookup(bppRegistryServiceClient, lookupRequest(subscriberType = Subscriber.Type.BPP, subscriberId = id))
+  fun lookupBppById(id: String, domain: String): Either<RegistryLookupError, List<SubscriberDto>> {
+    return lookup(bppRegistryServiceClient, lookupRequest(subscriberType = Subscriber.Type.BPP, subscriberId = id,domain = domain))
   }
 
   @Scheduled(cron = "\${registry_service.cache.expiry_cron_schedule}")
@@ -80,7 +80,7 @@ class RegistryService(
     }
   }
 
-  private fun lookupRequest(subscriberType: Subscriber.Type, subscriberId: String? = null) = SubscriberLookupRequest(
+  private fun lookupRequest(subscriberType: Subscriber.Type, subscriberId: String? = null, domain: String) = SubscriberLookupRequest(
     subscriber_id = subscriberId,
     type = subscriberType,
     domain = domain,

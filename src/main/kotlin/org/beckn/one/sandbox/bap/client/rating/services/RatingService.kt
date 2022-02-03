@@ -25,7 +25,7 @@ class RatingService @Autowired constructor(
   ): Either<HttpError, ProtocolAckResponse?> {
     log.info("Got rating request for Id: {}", request.message.refId)
     return request.validate()
-      .flatMap { registryService.lookupBppById(it.context.bppId!!) }
+      .flatMap { registryService.lookupBppById(it.context.bppId!!, context.domain) }
       .flatMap {
         bppRatingService.rating(
           bppUri = it.first().subscriber_url,

@@ -29,7 +29,7 @@ class TrackController @Autowired constructor(
   @RequestMapping("/client/v1/track")
   @ResponseBody
   fun track(@RequestBody request: TrackRequestDto): ResponseEntity<ProtocolAckResponse> {
-    val context = contextFactory.create(action = ProtocolContext.Action.TRACK)
+    val context = contextFactory.create(action = ProtocolContext.Action.TRACK,domain = request.context?.domain)
     return trackService.track(context, request)
       .fold(
         {

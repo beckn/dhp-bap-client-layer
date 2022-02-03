@@ -28,7 +28,7 @@ class SupportService @Autowired constructor(
       return Either.Left(BppError.BppIdNotPresent)
     }
 
-    return registryService.lookupBppById(bppId)
+    return registryService.lookupBppById(bppId, context.domain)
       .flatMap {
         bppSupportService.support(
           bppUri = it.first().subscriber_url,

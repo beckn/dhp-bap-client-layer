@@ -34,7 +34,7 @@ class CancelOrderService @Autowired constructor(
       log.info("BPPId not present")
       return Either.Left(BppError.BppIdNotPresent)
     }
-    return registryService.lookupBppById(context.bppId!!).flatMap {
+    return registryService.lookupBppById(context.bppId!!, context.domain).flatMap {
       bppService.cancelOrder(
         bppUri = it.first().subscriber_url,
         context = context,

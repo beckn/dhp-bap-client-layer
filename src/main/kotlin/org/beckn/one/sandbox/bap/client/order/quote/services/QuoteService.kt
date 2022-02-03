@@ -40,7 +40,7 @@ class QuoteService @Autowired constructor(
       log.info("Cart contains items from more than one provider, returning error. Cart: {}", cart)
       return Either.Left(CartError.MultipleProviders)
     }
-    return registryService.lookupBppById(cart.items.first().bppId)
+    return registryService.lookupBppById(cart.items.first().bppId, context.domain)
       .flatMap { Either.Right(it.first()) }
       .flatMap {
         bppSelectService.select(

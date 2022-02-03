@@ -87,6 +87,6 @@ internal class SearchServiceSpec : DescribeSpec() {
   }
 
   private fun stubGatewayLookupApi(gateway: SubscriberDto, anotherGateway: SubscriberDto) {
-    `when`(registryService.lookupGateways()).thenReturn(Either.Right(listOf(gateway, anotherGateway)))
+    `when`(registryService.lookupGateways(context.domain)).thenReturn(Either.Right(listOf(gateway, anotherGateway)))
   }
 }

@@ -49,7 +49,7 @@ internal class RegistryServiceSpec : DescribeSpec() {
           Calls.response(listOf(SubscriberDtoFactory.getDefault(clock = clock)))
         )
 
-        val response: Either<RegistryLookupError, List<SubscriberDto>> = registryService.lookupGateways()
+        val response: Either<RegistryLookupError, List<SubscriberDto>> = registryService.lookupGateways(context.domain)
 
         response
           .fold(
@@ -64,7 +64,7 @@ internal class RegistryServiceSpec : DescribeSpec() {
           Calls.failure(IOException("Timeout"))
         )
 
-        val response: Either<RegistryLookupError, List<SubscriberDto>> = registryService.lookupGateways()
+        val response: Either<RegistryLookupError, List<SubscriberDto>> = registryService.lookupGateways(context.domain)
 
         response
           .fold(
@@ -78,7 +78,7 @@ internal class RegistryServiceSpec : DescribeSpec() {
           Calls.failure(RuntimeException("Network error"))
         )
 
-        val response: Either<RegistryLookupError, List<SubscriberDto>> = registryService.lookupGateways()
+        val response: Either<RegistryLookupError, List<SubscriberDto>> = registryService.lookupGateways(context.domain)
 
         response
           .fold(
@@ -92,7 +92,7 @@ internal class RegistryServiceSpec : DescribeSpec() {
           Calls.response(null)
         )
 
-        val response: Either<RegistryLookupError, List<SubscriberDto>> = registryService.lookupGateways()
+        val response: Either<RegistryLookupError, List<SubscriberDto>> = registryService.lookupGateways(context.domain)
 
         response
           .fold(
@@ -106,7 +106,7 @@ internal class RegistryServiceSpec : DescribeSpec() {
           Calls.response(emptyList())
         )
 
-        val response: Either<RegistryLookupError, List<SubscriberDto>> = registryService.lookupGateways()
+        val response: Either<RegistryLookupError, List<SubscriberDto>> = registryService.lookupGateways(context.domain)
 
         response
           .fold(
