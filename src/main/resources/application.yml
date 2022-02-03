@@ -60,14 +60,14 @@ context:
   city: std:080
   country: IND
   bap_id: healthcarebap.becknprotocol.io
-  bap_uri: http://localhost:9002/protocol/v1
+  bap_uri: https://api.healthcarebap.becknprotocol.io/protocol/v1/
   ttl_seconds: 20
 beckn:
   security.enabled: false
 security:
   self:
     public_key :  X+jgcPXHD4kFzvcbb3eaxWRA5UwB8Mm6IykeTPADofU=
-    private_key: ${private_key}
+    private_key: ${PRIVATE_KEY}
     unique_key_id: key_12
   firebase-props:
     enable-strict-server-session: false
