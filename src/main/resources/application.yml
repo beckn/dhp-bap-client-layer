@@ -55,8 +55,8 @@ protocol_service:
     write_in_seconds: 5
 context:
   domain: nic2004:52110
-  domain_consultation: nic2021:85110
-  domain_diagnostics: nic2021:85195
+  domain_consultation: nic2004:85110
+  domain_diagnostics: nic2004:85195
   city: std:080
   country: IND
   bap_id: healthcarebap.becknprotocol.io
