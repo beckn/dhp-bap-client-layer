@@ -28,7 +28,7 @@ class SupportController @Autowired constructor(
     @RequestBody supportRequest: SupportRequestDto
   ): ResponseEntity<ProtocolAckResponse> {
     val context =
-      getContext(supportRequest.context.transactionId) // might not matter as the context might have different transaction id
+      getContext(supportRequest.context.transactionId, supportRequest.context.domain) // might not matter as the context might have different transaction id
     return supportService.getSupport(
       context = context,
       supportRequestMessage = supportRequest.message,
@@ -55,7 +55,7 @@ class SupportController @Autowired constructor(
       var okResponseSupport : MutableList<ProtocolAckResponse> = ArrayList()
       for (supportRequest in supportRequestList) {
         val context =
-          getContext(supportRequest.context.transactionId) // might not matter as the context might have different transaction id
+          getContext(supportRequest.context.transactionId, supportRequest.context.domain) // might not matter as the context might have different transaction id
 
         supportService.getSupport(
           context = context,
@@ -100,6 +100,6 @@ class SupportController @Autowired constructor(
       )
     )
 
-  private fun getContext(transactionId: String) =
-    contextFactory.create(action = ProtocolContext.Action.SUPPORT, transactionId = transactionId)
+  private fun getContext(transactionId: String, domain: String?) =
+    contextFactory.create(action = ProtocolContext.Action.SUPPORT, transactionId = transactionId, domain = domain)
 }

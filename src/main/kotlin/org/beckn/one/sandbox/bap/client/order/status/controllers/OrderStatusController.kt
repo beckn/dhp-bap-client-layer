@@ -32,7 +32,7 @@ class OrderStatusController @Autowired constructor(
   fun orderStatusV1(
     @RequestBody orderStatusRequest: OrderStatusDto
   ): ResponseEntity<ProtocolAckResponse> {
-    val context = getContext(orderStatusRequest.context.transactionId)
+    val context = getContext(orderStatusRequest.context.transactionId, orderStatusRequest.context.domain)
     return orderStatusService.getOrderStatus(
       context = context,
       request = orderStatusRequest
@@ -68,7 +68,7 @@ class OrderStatusController @Autowired constructor(
 
     if(!orderStatusRequest.isNullOrEmpty()){
       for( data: OrderStatusDto in orderStatusRequest) {
-        val context = getContext(data.context.transactionId)
+        val context = getContext(data.context.transactionId, data.context.domain)
         orderStatusService.getOrderStatus(
           context = context,
           request = data
@@ -103,6 +103,6 @@ class OrderStatusController @Autowired constructor(
     }
   }
 
-  private fun getContext(transactionId: String) =
-    contextFactory.create(action = ProtocolContext.Action.STATUS, transactionId = transactionId)
+  private fun getContext(transactionId: String, domain: String?) =
+    contextFactory.create(action = ProtocolContext.Action.STATUS, transactionId = transactionId, domain =  domain)
 }

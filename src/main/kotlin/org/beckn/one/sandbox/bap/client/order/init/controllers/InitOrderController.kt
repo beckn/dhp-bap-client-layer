@@ -32,7 +32,7 @@ class InitOrderController @Autowired constructor(
   fun initiOrderV1(
     @RequestBody orderRequest: OrderRequestDto
   ): ResponseEntity<ProtocolAckResponse> {
-    val context = getContext(orderRequest.context.transactionId)
+    val context = getContext(orderRequest.context.transactionId,domain = orderRequest.context.domain)
     return initOrderService.initOrder(
       context = context,
       order = orderRequest.message
@@ -67,7 +67,7 @@ class InitOrderController @Autowired constructor(
     var okResponseInit : MutableList<ProtocolAckResponse> = ArrayList()
     if(!orderRequest.isNullOrEmpty()) {
       for (data in orderRequest) {
-        val context = getContext(data.context.transactionId)
+        val context = getContext(data.context.transactionId, data.context.domain)
          initOrderService.initOrder(
           context = context,
           order = data.message
@@ -96,6 +96,6 @@ class InitOrderController @Autowired constructor(
   }
 
 
-  private fun getContext(transactionId: String) =
-    contextFactory.create(action = ProtocolContext.Action.INIT, transactionId = transactionId)
+  private fun getContext(transactionId: String, domain: String?) =
+    contextFactory.create(action = ProtocolContext.Action.INIT, transactionId = transactionId, domain= domain)
 }

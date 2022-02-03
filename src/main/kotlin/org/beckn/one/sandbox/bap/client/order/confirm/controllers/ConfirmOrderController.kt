@@ -37,7 +37,7 @@ class ConfirmOrderController @Autowired constructor(
   fun confirmOrderV1(
     @RequestBody orderRequest: OrderRequestDto
   ): ResponseEntity<ProtocolAckResponse> {
-    val context = getContext(orderRequest.context.transactionId)
+    val context = getContext(orderRequest.context.transactionId, orderRequest.context.domain)
     return confirmOrderService.confirmOrder(
       context = context,
       order = orderRequest.message
@@ -77,7 +77,7 @@ class ConfirmOrderController @Autowired constructor(
       if (SecurityUtil.getSecuredUserDetail() != null) {
         val parentOrderId = Util.getRandomString()
         for (order in orderRequest) {
-          val context = getContext(order.context.transactionId)
+          val context = getContext(order.context.transactionId, order.context.domain)
           confirmOrderService.confirmOrder(
             context = context,
             order = order.message
@@ -143,6 +143,6 @@ class ConfirmOrderController @Autowired constructor(
       )
     )
 
-  private fun getContext(transactionId: String) =
-    contextFactory.create(action = ProtocolContext.Action.CONFIRM, transactionId = transactionId)
+  private fun getContext(transactionId: String, domain: String?) =
+    contextFactory.create(action = ProtocolContext.Action.CONFIRM, transactionId = transactionId,domain = domain)
 }
