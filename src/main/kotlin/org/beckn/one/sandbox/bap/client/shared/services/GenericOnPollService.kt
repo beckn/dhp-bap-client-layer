@@ -19,10 +19,7 @@ open class GenericOnPollService<Protocol : ProtocolResponse, Output : ClientResp
   open fun onPoll(context: ProtocolContext, call: Call<List<Protocol>>): Either<HttpError, Output> {
     log.info("Got fetch request for message id: {}", context.messageId)
     return protocolService.getResponse(call)
-      .flatMap {
-        val newContext = it[0].context?: context
-        transformer.transform(it, newContext)
-      }
+      .flatMap { transformer.transform(it, context) }
   }
 
 }
