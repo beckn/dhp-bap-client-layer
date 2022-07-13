@@ -3,6 +3,7 @@ package org.beckn.one.sandbox.bap.client.discovery.services
 import arrow.core.Either
 import arrow.core.Either.Left
 import arrow.core.Either.Right
+import arrow.core.identity
 import org.beckn.one.sandbox.bap.client.external.hasBody
 import org.beckn.one.sandbox.bap.client.external.isAckNegative
 import org.beckn.one.sandbox.bap.client.external.isInternalServerError
@@ -23,7 +24,7 @@ class BppSearchService @Autowired constructor(
   private val log: Logger = LoggerFactory.getLogger(BppSearchService::class.java)
 
   fun search(bppUri: String, context: ProtocolContext, criteria: SearchCriteria)
-      : Either<BppError, ProtocolAckResponse> {
+          : Either<BppError, ProtocolAckResponse> {
     return Either.catch {
       log.info("Invoking Search API on BPP: {}", bppUri)
       val bppServiceClient = bppServiceClientFactory.getClient(bppUri)
@@ -34,7 +35,7 @@ class BppSearchService @Autowired constructor(
           ProtocolSearchRequestMessage(
             ProtocolIntent(
               item = ProtocolIntentItem(descriptor = ProtocolIntentItemDescriptor(name = criteria.searchString)),
-              provider = ProtocolProvider(id = criteria.providerId, category_id = criteria.categoryId, descriptor = ProtocolDescriptor(name = criteria.providerName)),
+              provider = ProtocolProvider(id = criteria.providerId, category_id = criteria.categoryId, descriptor = ProtocolDescriptor(name = criteria.providerName, code = criteria.providerCode)),
               fulfillment = getFulfillmentFilter(criteria),
               category = ProtocolCategory(id = criteria.categoryId,descriptor = ProtocolDescriptor(name = criteria.categoryName))
             )
@@ -62,8 +63,16 @@ class BppSearchService @Autowired constructor(
     when {
       StringUtils.hasText(criteria.deliveryLocation) ->
         ProtocolFulfillment(
-          start = ProtocolFulfillmentStart(location = ProtocolLocation(gps=criteria.pickupLocation)),
-          end = ProtocolFulfillmentEnd(location = ProtocolLocation(gps = criteria.deliveryLocation))
+          start = ProtocolFulfillmentStart(location = ProtocolLocation(gps=criteria.pickupLocation), time = ProtocolTime(label = criteria.startTime)),
+          end = ProtocolFulfillmentEnd(location = ProtocolLocation(gps = criteria.deliveryLocation), time = ProtocolTime(label = criteria.endTime)),
+          agent = ProtocolPerson(
+            name = criteria.doctorName,
+            id = criteria.doctorId,
+            tags = mapOf("@abdm/gov/in/system_of_med" to if (criteria.systemOfMedicine.isNullOrEmpty()) "" else criteria.systemOfMedicine,
+              "@abdm/gov/in/med_speciality" to if (criteria.medicineSpecialty.isNullOrEmpty()) "" else criteria.medicineSpecialty,
+              "@abdm/gov/in/spoken_langs" to if (criteria.spokenLanguage.isNullOrEmpty()) "" else criteria.spokenLanguage)
+          ),
+          type = criteria.type,
         )
       else -> null
     }

@@ -21,4 +21,15 @@ data class SearchCriteria @Default constructor(
   val categoryName: String? = null,
   val symptoms: String? = null,
   val domain: String? = null,
-)
+  val doctorId: String? = null,
+  val doctorName: String? = null,
+  val systemOfMedicine: String? = null,
+  val medicineSpecialty: String? = null,
+  val spokenLanguage: String? = null,
+  val providerCode: String? = null,
+  val startTime: String? = null,
+  val endTime: String? = null,
+  val type: String? = null,
+
+
+  )
