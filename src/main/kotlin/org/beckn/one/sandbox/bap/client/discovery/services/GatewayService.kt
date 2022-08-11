@@ -2,6 +2,8 @@ package org.beckn.one.sandbox.bap.client.discovery.services
 
 import arrow.core.Either
 import arrow.core.Either.Left
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import org.beckn.one.sandbox.bap.client.external.gateway.GatewayClientFactory
 import org.beckn.one.sandbox.bap.client.external.hasBody
 import org.beckn.one.sandbox.bap.client.external.isAckNegative
@@ -27,7 +29,8 @@ class GatewayService @Autowired constructor(
       log.info("Initiating Search using gateway: {}. Context: {}", gateway, context)
       val gatewayServiceClient = gatewayServiceClientFactory.getClient(gateway.subscriber_url)
       val requestBody = buildProtocolSearchRequest(context, criteria)
-      log.info("Request body for gateway: {}", requestBody);
+      val gsonPretty = GsonBuilder().setPrettyPrinting().create()
+      log.info("Request body for gateway: {}", gsonPretty.toJson(requestBody));
       val httpResponse = gatewayServiceClient.search(requestBody).execute()
       log.info("Search response. Status: {}, Body: {}", httpResponse.code(), httpResponse.body())
       return when {
@@ -60,7 +63,8 @@ class GatewayService @Autowired constructor(
           fulfillment = ProtocolFulfillment(
             start = ProtocolFulfillmentStart(location = ProtocolLocation(gps=criteria.pickupLocation)),
             end = ProtocolFulfillmentEnd(location = ProtocolLocation(gps = criteria.deliveryLocation)),
-          agent = ProtocolPerson(name = criteria?.searchString)),
+          agent = ProtocolPerson(name = criteria?.searchString),
+          person = ProtocolPerson(descriptor = ProtocolDescriptor(name = criteria?.searchString))),
           tags = if(criteria?.symptoms != null) mapOf("symptoms" to criteria?.symptoms) else null
         )
       )

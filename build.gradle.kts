@@ -64,6 +64,7 @@ dependencies {
   implementation("jakarta.xml.bind:jakarta.xml.bind-api:2.3.2")
   implementation("com.google.firebase:firebase-admin:8.1.0")
   implementation("org.litote.kmongo:kmongo:4.2.8")
+  implementation("com.google.code.gson:gson:2.8.5")
 
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("io.kotest:kotest-runner-junit5:4.4.3")
