@@ -29,7 +29,7 @@ class ContextFactory @Autowired constructor(
     country = country,
     city = city,
     action = action,
-    coreVersion = ProtocolVersion.V0_9_1.value,
+    coreVersion = ProtocolVersion.V0_7_1.value,
     bapId = bapId,
     bapUri = bapUrl,
     bppId = bppId,
