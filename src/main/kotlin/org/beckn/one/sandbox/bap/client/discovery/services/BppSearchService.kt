@@ -73,6 +73,9 @@ class BppSearchService @Autowired constructor(
               "@abdm/gov/in/spoken_langs" to if (criteria.spokenLanguage.isNullOrEmpty()) "" else criteria.spokenLanguage)
           ),
           type = criteria.type,
+          person = ProtocolPerson(
+            descriptor = ProtocolDescriptor(name = criteria.searchString)
+          )
         )
       else -> null
     }
