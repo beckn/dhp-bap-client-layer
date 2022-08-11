@@ -27,6 +27,7 @@ class GatewayService @Autowired constructor(
       log.info("Initiating Search using gateway: {}. Context: {}", gateway, context)
       val gatewayServiceClient = gatewayServiceClientFactory.getClient(gateway.subscriber_url)
       val requestBody = buildProtocolSearchRequest(context, criteria)
+      log.info("Request body for gateway: {}", requestBody);
       val httpResponse = gatewayServiceClient.search(requestBody).execute()
       log.info("Search response. Status: {}, Body: {}", httpResponse.code(), httpResponse.body())
       return when {
