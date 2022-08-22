@@ -26,10 +26,10 @@ class GatewayService @Autowired constructor(
   fun search(gateway: SubscriberDto, context: ProtocolContext, criteria: SearchCriteria)
       : Either<GatewaySearchError, ProtocolAckResponse> {
     return Either.catch {
-      log.info("Initiating Search using gateway: {}. Context: {}", gateway, context)
+      val gsonPretty = GsonBuilder().setPrettyPrinting().create()
+      log.info("Initiating Search using gateway: {}. Context: {}", gsonPretty.toJson(gateway), gsonPretty.toJson(context))
       val gatewayServiceClient = gatewayServiceClientFactory.getClient(gateway.subscriber_url)
       val requestBody = buildProtocolSearchRequest(context, criteria)
-      val gsonPretty = GsonBuilder().setPrettyPrinting().create()
       log.info("Request body for gateway: {}", gsonPretty.toJson(requestBody));
       val httpResponse = gatewayServiceClient.search(requestBody).execute()
       log.info("Search response. Status: {}, Body: {}", httpResponse.code(), httpResponse.body())
