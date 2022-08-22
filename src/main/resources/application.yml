@@ -24,7 +24,7 @@ registry_service:
     read_in_seconds: 10
     write_in_seconds: 10
 bpp_registry_service:
-  url: https://registry.becknprotocol.io/subscribers/
+  url: https://gateway.becknprotocol.io/bg
 gateway_service:
   retry:
     max_attempts: 3
