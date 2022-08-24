@@ -2,6 +2,7 @@ package org.beckn.one.sandbox.bap.client.order.init.services
 
 import arrow.core.Either
 import arrow.core.flatMap
+import com.google.gson.GsonBuilder
 import org.beckn.one.sandbox.bap.client.shared.dtos.OrderDto
 import org.beckn.one.sandbox.bap.client.shared.dtos.OrderItemDto
 import org.beckn.one.sandbox.bap.client.shared.errors.CartError
@@ -24,7 +25,8 @@ class InitOrderService @Autowired constructor(
     context: ProtocolContext,
     order: OrderDto
   ): Either<HttpError, ProtocolAckResponse?> {
-    log.info("Got initialize order request. Context: {}, Order: {}", context, order)
+    val gsonPretty = GsonBuilder().setPrettyPrinting().create()
+    log.info("Got initialize order request. \nContext: {}, \nOrder: {}", gsonPretty.toJson(context), gsonPretty.toJson(order))
     if (order.items.isNullOrEmpty()) {
       log.info("Empty order received, no op. Order: {}", order)
       return Either.Right(null)
