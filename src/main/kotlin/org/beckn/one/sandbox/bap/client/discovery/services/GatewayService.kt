@@ -53,17 +53,17 @@ class GatewayService @Autowired constructor(
       context,
       ProtocolSearchRequestMessage(
         ProtocolIntent(
-          item = ProtocolIntentItem(descriptor = ProtocolIntentItemDescriptor(name = criteria.searchString)),
+          item = ProtocolIntentItem(descriptor = ProtocolIntentItemDescriptor(name = "")),
           provider = ProtocolProvider( id = criteria?.providerId, category_id = criteria?.categoryId,
-            descriptor = ProtocolDescriptor(name = criteria?.searchString)),
+            descriptor = ProtocolDescriptor(name = "")),
           category= ProtocolCategory(
             id = criteria?.categoryId,
-            descriptor = ProtocolDescriptor(name = criteria?.searchString)
+            descriptor = ProtocolDescriptor(name = "")
           ),
           fulfillment = ProtocolFulfillment(
             start = ProtocolFulfillmentStart(location = ProtocolLocation(gps=criteria.pickupLocation)),
             end = ProtocolFulfillmentEnd(location = ProtocolLocation(gps = criteria.deliveryLocation)),
-          agent = ProtocolPerson(name = criteria?.searchString),
+          agent = ProtocolPerson(name = ""),
           person = ProtocolPerson(descriptor = ProtocolDescriptor(name = criteria?.searchString))),
           tags = if(criteria?.symptoms != null) mapOf("symptoms" to criteria?.symptoms) else null
         )
