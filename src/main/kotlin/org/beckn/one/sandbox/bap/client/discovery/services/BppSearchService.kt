@@ -34,10 +34,10 @@ class BppSearchService @Autowired constructor(
           context,
           ProtocolSearchRequestMessage(
             ProtocolIntent(
-              item = ProtocolIntentItem(descriptor = ProtocolIntentItemDescriptor(name = criteria.searchString)),
-              provider = ProtocolProvider(id = criteria.providerId, category_id = criteria.categoryId, descriptor = ProtocolDescriptor(name = criteria.providerName, code = criteria.providerCode)),
+//              item = ProtocolIntentItem(descriptor = ProtocolIntentItemDescriptor(name = criteria.searchString)),
+//              provider = ProtocolProvider(id = criteria.providerId, category_id = criteria.categoryId, descriptor = ProtocolDescriptor(name = criteria.providerName, code = criteria.providerCode)),
               fulfillment = getFulfillmentFilter(criteria),
-              category = ProtocolCategory(id = criteria.categoryId,descriptor = ProtocolDescriptor(name = criteria.categoryName))
+//              category = ProtocolCategory(id = criteria.categoryId,descriptor = ProtocolDescriptor(name = criteria.categoryName))
             )
           )
         )
@@ -65,13 +65,13 @@ class BppSearchService @Autowired constructor(
         ProtocolFulfillment(
           start = ProtocolFulfillmentStart(location = ProtocolLocation(gps=criteria.pickupLocation), time = ProtocolTime(label = criteria.startTime)),
           end = ProtocolFulfillmentEnd(location = ProtocolLocation(gps = criteria.deliveryLocation), time = ProtocolTime(label = criteria.endTime)),
-          agent = ProtocolPerson(
-            name = criteria.doctorName,
-            id = criteria.doctorId,
-            tags = mapOf("@abdm/gov/in/system_of_med" to if (criteria.systemOfMedicine.isNullOrEmpty()) "" else criteria.systemOfMedicine,
-              "@abdm/gov/in/med_speciality" to if (criteria.medicineSpecialty.isNullOrEmpty()) "" else criteria.medicineSpecialty,
-              "@abdm/gov/in/spoken_langs" to if (criteria.spokenLanguage.isNullOrEmpty()) "" else criteria.spokenLanguage)
-          ),
+//          agent = ProtocolPerson(
+//            name = criteria.doctorName,
+//            id = criteria.doctorId,
+//            tags = mapOf("@abdm/gov/in/system_of_med" to if (criteria.systemOfMedicine.isNullOrEmpty()) "" else criteria.systemOfMedicine,
+//              "@abdm/gov/in/med_speciality" to if (criteria.medicineSpecialty.isNullOrEmpty()) "" else criteria.medicineSpecialty,
+//              "@abdm/gov/in/spoken_langs" to if (criteria.spokenLanguage.isNullOrEmpty()) "" else criteria.spokenLanguage)
+//          ),
           type = criteria.type,
           person = ProtocolPerson(
             descriptor = ProtocolDescriptor(name = criteria.searchString)
