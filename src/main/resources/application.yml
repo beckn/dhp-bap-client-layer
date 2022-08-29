@@ -60,7 +60,7 @@ context:
   city: std:080
   country: IND
   bap_id: healthcarebap.becknprotocol.io
-  bap_uri: https://api.healthcarebap.becknprotocol.io/bap/v1/
+  bap_uri: https://api.healthcarebap.becknprotocol.io/protocol/v1/
   ttl_seconds: 20
   core_version: 0.7.1
 beckn:
